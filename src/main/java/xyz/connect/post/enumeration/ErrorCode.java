@@ -5,9 +5,11 @@ import org.springframework.http.HttpStatus;
 
 @Getter
 public enum ErrorCode {
+
     //Common
     SERVER_ERROR(HttpStatus.INTERNAL_SERVER_ERROR, "Z001", "Unknown Server Error"),
     THIRD_PARTY_API_EXCEPTION(HttpStatus.INTERNAL_SERVER_ERROR, "Z002", ""),
+    NOT_SUPPORTED_METHOD(HttpStatus.BAD_REQUEST, "Z003", "지원하지 않는 Http method 입니다."),
 
     //Post
     UNAUTHORIZED(HttpStatus.UNAUTHORIZED, "P001", "게시글에 대한 권한이 없습니다."),
