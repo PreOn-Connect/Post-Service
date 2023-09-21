@@ -10,7 +10,10 @@ import xyz.connect.post.custom_exception.PostApiException;
 import xyz.connect.post.enumeration.ErrorCode;
 
 import java.io.IOException;
-import java.util.*;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+import java.util.UUID;
 
 @Component
 @Slf4j
@@ -30,35 +33,37 @@ public class S3Util {
         );
     }
 
-    public void uploadFiles(List<MultipartFile> multipartFiles) throws IOException {
-        for (MultipartFile file : multipartFiles) {
-            if (!validMediaType.contains(file.getContentType())) {
-                throw new PostApiException(ErrorCode.INVALID_MEDIA_TYPE);
-            }
+    // MultipartFile 리스트를 받아 해당 파일들을 s3에 업로드
+    public void uploadFile(MultipartFile multipartFile) throws IOException {
+        if (!validMediaType.contains(multipartFile.getContentType())) {
+            throw new PostApiException(ErrorCode.INVALID_MEDIA_TYPE);
         }
 
-        for (MultipartFile multipartFile : multipartFiles) {
-            log.info("originalFileName: " + multipartFile.getOriginalFilename());
-            log.info("size: " + multipartFile.getSize());
-            log.info("contentType: " + multipartFile.getContentType());
+        ObjectMetadata metadata = new ObjectMetadata();
+        metadata.setContentLength(multipartFile.getSize());
+        metadata.setContentType(multipartFile.getContentType());
+        String fileName = UUID.randomUUID().toString();
 
-            ObjectMetadata metadata = new ObjectMetadata();
-            metadata.setContentLength(multipartFile.getSize());
-            metadata.setContentType(multipartFile.getContentType());
-
-            amazonS3.putObject(bucket, UUID.randomUUID().toString(), multipartFile.getInputStream(), metadata);
-        }
+        amazonS3.putObject(bucket, fileName, multipartFile.getInputStream(), metadata);
+        log.info("File is uploaded. name: " + fileName);
     }
 
     //S3 에 업로드된 파일명을 찾아 Public url 을 리턴
-    public List<String> getImageUrl(List<String> pathList) {
-        if (pathList == null || pathList.isEmpty()) {
-            return new ArrayList<>();
+    public String getImageUrl(String fileName) {
+        if (fileName == null || fileName.isEmpty()) {
+            return null;
         }
 
-        return pathList.stream()
-                .filter(path -> amazonS3.doesObjectExist(bucket, path))
-                .map(path -> amazonS3.getUrl(bucket, path).toString())
-                .toList();
+        if (!amazonS3.doesObjectExist(bucket, fileName)) {
+            return null;
+        }
+
+        return amazonS3.getUrl(bucket, fileName).toString();
+    }
+
+    //S3 업로드된 파일명을 받아 삭제
+    public void deleteFile(String path) {
+        if (path == null || path.isEmpty()) return;
+        amazonS3.deleteObject(bucket, path);
     }
 }
