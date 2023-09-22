@@ -10,7 +10,6 @@ import org.mockito.MockitoAnnotations;
 import org.springframework.mock.web.MockMultipartFile;
 import xyz.connect.post.custom_exception.PostApiException;
 
-import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 
@@ -35,7 +34,7 @@ class S3UtilTest {
     }
 
     @Test
-    void uploadFiles() throws IOException {
+    void uploadFiles() {
         //given
         String filename = "testFile";
         byte[] content = "file contents.".getBytes();
