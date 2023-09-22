@@ -20,12 +20,12 @@ public class ControllerExceptionHandler {
     @Value("${spring.servlet.multipart.max-file-size}")
     private String maxFileSize;
 
-
     // Api 비즈니스 로직 예외
     @ExceptionHandler(PostApiException.class)
     public ResponseEntity<ErrorResponse> unauthorizedExceptionHandler(PostApiException e) {
         return makeErrorResponseEntity(e.getErrorCode());
     }
+
 
     // 게시글 이미지 용량 초과
     @ExceptionHandler(MaxUploadSizeExceededException.class)
@@ -33,7 +33,7 @@ public class ControllerExceptionHandler {
         ErrorCode errorCode = ErrorCode.MAX_UPLOAD_SIZE_EXCEEDED;
         return makeErrorResponseEntity(errorCode, errorCode.getMessage() + " 최대 파일 사이즈: " + maxFileSize);
     }
-
+  
     //API 요청 파라미터 값의 유효성 위반
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<ErrorResponse> invalidArgumentExceptionHandler(
