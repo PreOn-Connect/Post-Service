@@ -18,7 +18,6 @@ public class S3Util {
 
     private final AmazonS3 amazonS3;
 
-
     @Value("${cloud.aws.s3.bucket}")
     private String bucket;
 
