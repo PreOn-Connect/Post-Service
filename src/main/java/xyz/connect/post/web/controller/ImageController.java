@@ -26,7 +26,7 @@ public class ImageController {
         return ResponseEntity.ok(uploadImageService.uploadImage(multipartFile));
     }
 
-    @PostMapping("/")
+    @PostMapping("/list")
     public ResponseEntity<List<String>> uploadImages(List<MultipartFile> multipartFiles) {
         return ResponseEntity.ok(uploadImageService.uploadImages(multipartFiles));
     }
