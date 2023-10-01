@@ -20,9 +20,13 @@ public class PostService {
         PostEntity postEntity = new PostEntity();
         postEntity.setAccountId(1L); // TODO: 추후 삭제
         postEntity.setContent(createPost.content());
-        for (String url : createPost.imageUrl()) {
-            sb.append(url).append(";");
+
+        if (createPost.imageUrl() != null) {
+            for (String url : createPost.imageUrl()) {
+                sb.append(url).append(";");
+            }
         }
+        sb.deleteCharAt(sb.length() - 1);
         postEntity.setImages(sb.toString());
 
         postRepository.save(postEntity);
