@@ -17,5 +17,6 @@ public class AclFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         log.info("Request about " + request.getRemoteAddr() + " -> " + request.getMethod() + " " + request.getRequestURL());
+        filterChain.doFilter(request, response);
     }
 }
