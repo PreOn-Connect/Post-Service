@@ -27,7 +27,7 @@ dependencies {
 	implementation("org.springframework.boot:spring-boot-starter-validation")
 	implementation("com.h2database:h2")
 	implementation("org.modelmapper:modelmapper:3.1.1")
-
+	implementation("org.springframework.cloud:spring-cloud-starter-aws:2.2.6.RELEASE")
 
 	compileOnly("org.projectlombok:lombok")
 
