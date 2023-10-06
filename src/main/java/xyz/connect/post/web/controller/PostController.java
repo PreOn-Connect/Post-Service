@@ -60,9 +60,9 @@ public class PostController {
         return ResponseEntity.noContent().build();
     }
 
-    @GetMapping("/views/{postId}")
-    public ResponseEntity<Long> getCurrentRedisViews(@PathVariable Long postId) {
-        long views = postService.getRedisViews(postId);
-        return ResponseEntity.ok(views);
-    }
+//    @GetMapping("/views/{postId}")
+//    public ResponseEntity<Long> getCurrentRedisViews(@PathVariable Long postId) {
+//        long views = postService.getRedisViews(postId);
+//        return ResponseEntity.ok(views);
+//    }
 }
