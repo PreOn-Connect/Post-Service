@@ -17,6 +17,9 @@ import xyz.connect.post.web.model.response.Post;
 import xyz.connect.post.web.repository.PostRepository;
 import xyz.connect.post.web.repository.redis.PostViewsRedisRepository;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 @Slf4j
@@ -77,11 +80,6 @@ public class PostService {
         postViewsEntity.setViews(postViewsEntity.getViews() + 1);
         postViewRedisRepository.save(postViewsEntity);
     }
-
-//    public long getRedisViews(Long postId) {
-//        Optional<PostViewsEntity> entityOptional = postViewRedisRepository.findById(postId);
-//        return entityOptional.map(PostViewsEntity::getViews).orElse(0L);
-//    }
 
     private PostEntity findPost(Long postId) {
         return postRepository.findById(postId)

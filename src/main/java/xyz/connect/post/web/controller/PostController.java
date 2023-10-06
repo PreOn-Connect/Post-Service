@@ -6,17 +6,13 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PatchMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import xyz.connect.post.web.model.request.CreatePost;
 import xyz.connect.post.web.model.request.UpdatePost;
 import xyz.connect.post.web.model.response.Post;
 import xyz.connect.post.web.service.PostService;
+
+import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
@@ -59,10 +55,4 @@ public class PostController {
         postService.increaseViews(postId);
         return ResponseEntity.noContent().build();
     }
-
-//    @GetMapping("/views/{postId}")
-//    public ResponseEntity<Long> getCurrentRedisViews(@PathVariable Long postId) {
-//        long views = postService.getRedisViews(postId);
-//        return ResponseEntity.ok(views);
-//    }
 }
