@@ -14,4 +14,5 @@ public class Post {
     private String content;
     private List<String> images;
     private Date createdAt;
+    private Long views;
 }
