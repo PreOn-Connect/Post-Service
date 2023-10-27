@@ -42,7 +42,7 @@ public class PostController {
 
     @GetMapping("")
     public ResponseEntity<List<Post>> getPosts(
-            @PageableDefault(sort = "createdAt", direction = Sort.Direction.DESC)
+            @PageableDefault(sort = "postId", direction = Sort.Direction.DESC)
             Pageable pageable) {
         return ResponseEntity.ok(postService.getPosts(pageable));
     }
