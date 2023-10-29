@@ -8,6 +8,8 @@ import java.io.IOException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
+import xyz.connect.post.custom_exception.PostApiException;
+import xyz.connect.post.enumeration.ErrorCode;
 
 @Component
 @Slf4j
@@ -20,7 +22,7 @@ public class AuthFilter extends OncePerRequestFilter {
         log.info("userPk: " + userPk);
         if (userPk == null || !isNumber(userPk)) {
             log.warn("Invalid User-Pk value in request header.");
-            return;
+            throw new PostApiException(ErrorCode.NOT_ALLOWED_ACCESS);
         }
 
         filterChain.doFilter(request, response);
